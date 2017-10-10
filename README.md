@@ -1,12 +1,9 @@
-# About
 
-HotWing is a Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter built entirely in Python. 
+# HotWing-cli
 
+![Hotwing Bird Logo](https://raw.githubusercontent.com/jasonhamilton/hotwing-cli/master/img/hotwing_logo.png)
 
-# Dependencies
-
-Hotwire is Python 2 and 3 compatible. Currently, the only dependency is Pillow, which is used for debugging purposes and is not required to run.
-
+HotWing-cli is a is a Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter. It is based on the [hotwing-core library](https://github.com/jasonhamilton/hotwing-core) and allows a user to design and modify their wings through a config file.
 
 # Usage
 
