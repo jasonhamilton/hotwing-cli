@@ -7,16 +7,24 @@ HotWing-cli is a is a Gcode generator for cutting model aircraft wings on a 4-ax
 
 # Usage
 
-## Getting Started
+## Installation
  
 1) Make sure you have Python and Pip installed
 2) Download the repository to your computer
 3) Navigate to the repository folder ```cd /my/folder/hotwing-cli```
 4) Install Dependencies ```pip install -r requirements.txt```
 5) Install HotWing-CLI ```pip install .```
-6) Copy the sample-config.cfg file and modify it to customize your wing - see the config customization options below.
-7) Run HotWing!  ```hotwing-cli my-config.cfg```
 
+
+## Quick Start
+
+1) Install HotWing-cli
+2) Create a copy the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg).
+3) Modify the config file.  See the Config File Options section for help.
+4) Run HotWing!  ```hotwing-cli path-to-my-config.cfg```.  
+5) The previous command output the gcode to the screen but we want it in a file.  You can do so by redirecting the output to a file ```hotwing-cli path-to-my-config.cfg > saved-gcode.ngc``` or specifying the output file as a parameter ```hotwing-cli -o saved-gcode.ngc path-to-my-config.cfg```
+
+For a more detailed walk through see this [tutorial](https://github.com/jasonhamilton/hotwing-cli/blob/master/tutorial.md)
 
 ## Command Line Args
 
@@ -39,7 +47,7 @@ optional arguments:
 
 # Config File Options
 
-The program requires a config file to operate.  A config file contains the contains the variables that define the wing.  The config file is organized into multiple sections that you can edit to get the perfect wing.  Start by copying the sample config file and use it as a starting point for creating your wing.  A sample config file looks like:
+A config file contains the contains the variables that define your wing.  The config file is organized into multiple sections that you can edit to get the perfect wing.  Start by copying the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg) and use it as a starting point for creating your wing.  A sample config file looks like:
 
 ```cfg
 [RootChord]
@@ -68,11 +76,9 @@ TrimFromTipSide = 0
 
 [Machine]
 Width = 30
-SafeHeight = 5
-StartOffsetLeadingEdge = 1
-EndOffsetTrailingEdge = 1
+FoamHeight = 2
+FoamDepth = 10
 Kerf = 0.075
-ProfilePoints = 200
 ```
 
 ## Config File Sections
@@ -114,43 +120,34 @@ Definitions are the same as the RootChord
 ```cfg
 ...
 [Panel]
-Side = right
 Width = 24
-SheetingTop = 0.0625
-SheetingBottom = 0.0625
 StockLeadingEdge = 0
 StockTrailingEdge = 0
-TrimFromRootSide = 0
-TrimFromTipSide = 0
+SheetingTop = 0.0625
+SheetingBottom = 0.0625
 ...
 ```
- * **Side** - Which side to cut.  Left or Right.
  * **Width** - Width of the total wing panel.  This is usually going to be half of the total span unless you are creating multiple panels.
- * **SheetingTop** - Allowance for sheeting on the top of the profile - the profile will be reduced by this amount.
- * **SheetingBottom** - Allowance for sheeting on the bottom of the profile - the profile will be reduced by this amount.
  * **StockLeadingEdge** - Allowance for stock on the leading edge.  This is useful if you want to glue on a wooden block on the leading edge that you will eventually sand down to the airfoil shape.
  * **StockTrailingEdge** - Allowance for stock on the trailing edge.  This is useful if you want to glue on a wooden trailing edge stock that you will sand down to the airfoil shape.
- * **TrimFromRootSide** - You can shorten the panel to cut.  Say you design a half wing as a panel but want to cut it in two or more sections.  This is the amount the panel will be trimmed down from the Root side of the wing.
- * **TrimFromTipSide** - This is the amount the panel will be trimmed down from the Tip side of the wing.
+ * **SheetingTop** - Allowance for sheeting on the top of the profile - the profile will be reduced by this amount.
+ * **SheetingBottom** - Allowance for sheeting on the bottom of the profile - the profile will be reduced by this amount.
+
+
 
 ### Machine
 ```cfg
 ...
 [Machine]
 Width = 30
-SafeHeight = 5
-StartOffsetLeadingEdge = 1
-EndOffsetTrailingEdge = 1
+FoamHeight = 2
+FoamDepth = 10
 Kerf = 0.075
-ProfilePoints = 200
 ```
  * **Width** -  Width of the distance between the pillars of your foam cutter.  This should be measured to where the hotwire is anchored on each pillar
- * **SafeHeight** - Height where the machine can move without worring about hitting anything
- * **StartOffsetLeadingEdge** - Position in front of the leading edge the hotwire will start from and then travel to the leading edge.
- * **EndOffsetTrailingEdge** -  Position behind the trailing edge the hotwire will extend/cut to.
+ * **FoamHeight** 
+ * **FoamDepth**
  * **Kerf** -  Amount of room to offset the hotwire so an accurate amount of foam is cut
- * **ProfilePoints** - The number of points that will be used to cut each of the top and bottom profiles
- * **Normalize** -  Normalization makes sure none of the gcode values are < 0
 
 
 ```
