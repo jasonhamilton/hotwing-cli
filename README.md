@@ -20,44 +20,74 @@ HotWing-cli is a is a Gcode generator for cutting model aircraft wings on a 4-ax
 
 ## Command Line Args
 
-    ```sh
-    $ python hotwing.py -h # see additional options
-    usage: hotwing-cli [-h] [-o output] [-d] input
+```sh
+$ python hotwing.py -h # see additional options
+usage: hotwing-cli [-h] [-o output] [-d] input
 
-    Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.
+Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.
 
-    positional arguments:
-      input       Config file to process and create gcode from.
+positional arguments:
+  input       Config file to process and create gcode from.
 
-    optional arguments:
-      -h, --help  show this help message and exit
-      -o output   Output file to write to
-      -d          Turn on debugging - draws images of profiles as they are
-                  created.
-    ```
+optional arguments:
+  -h, --help  show this help message and exit
+  -o output   Output file to write to
+  -d          Turn on debugging - draws images of profiles as they are
+              created.
+```
 
 
 # Config File Options
 
-The program requires a config file to operate.  A config file contains the contains the variables that define the wing.  The config file is organized into multiple sections that you can edit to get the perfect wing.  Start by copying the sample config file and use it as a starting point for creating your wing.  A config file looks something like (do not use - it is not complete):
+The program requires a config file to operate.  A config file contains the contains the variables that define the wing.  The config file is organized into multiple sections that you can edit to get the perfect wing.  Start by copying the sample config file and use it as a starting point for creating your wing.  A sample config file looks like:
 
 ```cfg
 [RootChord]
-Profile = profiles/rg14.dat
+Profile = http://m-selig.ae.illinois.edu/ads/coord/ag04.dat
 Width = 10
 LeadingEdgeOffset = 0
 Rotation = 0
 RotationPosition = 0.5
 
 [TipChord]
-...
+Profile = http://m-selig.ae.illinois.edu/ads/coord/ag09.dat
+Width = 8
+LeadingEdgeOffset = 2
+Rotation = 0
+RotationPosition = 0.5
+
+[Panel]
+Side = right
+Width = 24
+SheetingTop = 0.0625
+SheetingBottom = 0.0625
+StockLeadingEdge = 0
+StockTrailingEdge = 0
+TrimFromRootSide = 0
+TrimFromTipSide = 0
+
+[Machine]
+Width = 30
+SafeHeight = 5
+StartOffsetLeadingEdge = 1
+EndOffsetTrailingEdge = 1
+Kerf = 0.075
+ProfilePoints = 200
 ```
 
 ## Config File Sections
 
 ### RootChord
 Define the properties of your root chord here
-
+```cfg
+[RootChord]
+Profile = http://m-selig.ae.illinois.edu/ads/coord/ag04.dat
+Width = 10
+LeadingEdgeOffset = 0
+Rotation = 0
+RotationPosition = 0.5
+...
+```
 * **Profile** - Filename of the profile to use for the chord.
 * **Width** - Width of the chord, measured from the front to back of the wing at the chord position.
 * **LeadingEdgeOffset** - How far should the chord be offset forward or backwards.  Positive value moves chord aft  - see below for detailed explanation.  
@@ -66,15 +96,34 @@ Define the properties of your root chord here
 
 ### TipChord
 Define the properties of your tip chord here
+```cfg
+...
+[TipChord]
+Profile = http://m-selig.ae.illinois.edu/ads/coord/ag09.dat
+Width = 8
+LeadingEdgeOffset = 2
+Rotation = 0
+RotationPosition = 0.5
+...
+```
 
-* **Profile** - Filename of the profile to use for the chord.
-* **Width** - Width of the chord, measured from the front to back of the wing at the chord position.
-* **LeadingEdgeOffset** - How far should the chord be offset forward or backwards.  Positive value moves chord aft  - see below for detailed explanation.  
-* **Rotation** - defines washout - positive value angles leading edge upwards
-* **RotationPosition** - Position to rotate as a percentage of the chord to rotate.  ex: 0.5 = 50%; 0.25 = 25%
+Definitions are the same as the RootChord
 
 
 ### Panel
+```cfg
+...
+[Panel]
+Side = right
+Width = 24
+SheetingTop = 0.0625
+SheetingBottom = 0.0625
+StockLeadingEdge = 0
+StockTrailingEdge = 0
+TrimFromRootSide = 0
+TrimFromTipSide = 0
+...
+```
  * **Side** - Which side to cut.  Left or Right.
  * **Width** - Width of the total wing panel.  This is usually going to be half of the total span unless you are creating multiple panels.
  * **SheetingTop** - Allowance for sheeting on the top of the profile - the profile will be reduced by this amount.
@@ -85,7 +134,16 @@ Define the properties of your tip chord here
  * **TrimFromTipSide** - This is the amount the panel will be trimmed down from the Tip side of the wing.
 
 ### Machine
-
+```cfg
+...
+[Machine]
+Width = 30
+SafeHeight = 5
+StartOffsetLeadingEdge = 1
+EndOffsetTrailingEdge = 1
+Kerf = 0.075
+ProfilePoints = 200
+```
  * **Width** -  Width of the distance between the pillars of your foam cutter.  This should be measured to where the hotwire is anchored on each pillar
  * **SafeHeight** - Height where the machine can move without worring about hitting anything
  * **StartOffsetLeadingEdge** - Position in front of the leading edge the hotwire will start from and then travel to the leading edge.

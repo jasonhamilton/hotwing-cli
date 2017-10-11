@@ -92,7 +92,7 @@ def main():
     gcode = m.generate_gcode(   le_offset = Config.getfloat('Machine',"StartOffsetLeadingEdge"), 
                                 te_offset = Config.getfloat('Machine',"EndOffsetTrailingEdge"),
                                 safe_height = Config.getfloat('Machine',"SafeHeight"),
-                                normalize = Config.getboolean('Machine','Normalize') )
+                                normalize = True )
 
     if OUTPUT_FILE:
         with open(OUTPUT_FILE,"w")as f:
