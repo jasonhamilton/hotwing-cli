@@ -104,6 +104,10 @@ def main():
         if SIDE == "right":
             p = Panel.trim_panel(p, TRIM_A, TRIM_B )
 
+    if p.width > Config.getfloat('Machine',"Width"):
+        print("Error: Panel (%s) is bigger than the machine width (%s)." % (Config.getfloat('Machine',"Width"), p.width) )
+        exit(1)
+
     # Create Machine
     m = Machine(    width = Config.getfloat('Machine',"Width"), 
                     kerf =  Config.getfloat('Machine',"Kerf"),
