@@ -30,7 +30,7 @@ For a more detailed walk through see this [tutorial](https://github.com/jasonham
 
 ```sh
 $ python hotwing.py -h # see additional options
-usage: hotwing-cli [-h] [-o output] [-d] input
+usage: hotwing-cli [-h] [-o output] [-d] [-s side] [-t trim] [-p points] input
 
 Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.
 
@@ -42,6 +42,13 @@ optional arguments:
   -o output   Output file to write to
   -d          Turn on debugging - draws images of profiles as they are
               created.
+  -s side     Side to cut - 'l' or 'r'
+  -t trim     Section of wing to cut starting at the root to the tip. e.g:
+              10-20 will use the panel but only cut a 10 unit section starting
+              at 10 units from the root and ending 20 units from the root.
+  -p points   The number of points to interpolate/cut each profile surface
+              (top/bottom).
+
 ```
 
 
