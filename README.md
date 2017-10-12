@@ -21,9 +21,9 @@ HotWing-cli is a is a command-line-based Gcode generator for cutting model aircr
 
 <center>
 
-| [![Windows Binary](https://png.icons8.com/windows8/color/96)](https://github.com/jasonhamilton/hotwing-cli/blob/master/bin/hotwing-cli-win.zip) |  [![OSX Binary](https://png.icons8.com/apple-logo/color/96)]() |  [![Linux Binary](https://png.icons8.com/linux/color/96)]() |
+| [![Windows Binary](https://png.icons8.com/windows8/color/96)](https://github.com/jasonhamilton/hotwing-cli/raw/master/bin/hotwing-cli-win.zip) |  [![OSX Binary](https://png.icons8.com/apple-logo/color/96)]() |  [![Linux Binary](https://png.icons8.com/linux/color/96)]() |
 | :---:  	|     :---:      |         :---: |
-| [Windows](https://github.com/jasonhamilton/hotwing-cli/blob/master/bin/hotwing-cli-win.zip) |  OSX    | Linux   |
+| [Windows](https://github.com/jasonhamilton/hotwing-cli/raw/master/bin/hotwing-cli-win.zip) |  OSX    | Linux   |
 
 </center>
 
