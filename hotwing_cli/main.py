@@ -11,7 +11,11 @@ except ModuleNotFoundError:
     import configparser as ConfigParser
 
 
-CONFIG_OPTIONS = {  
+CONFIG_OPTIONS = {
+    'Project':{
+                    "Units":{"type":str,"required":False,"default":"inches"},
+
+    },
     'RootChord':{   "Profile":{"type":str,"required":True},
                     "Width":{"type":float,"required":True},
                     "LeadingEdgeOffset":{"type":float,"required":False,"default":0},
@@ -189,7 +193,8 @@ def main():
     gcode = m.generate_gcode(   le_offset = le_offset, 
                                 te_offset = te_offset,
                                 safe_height = get_config('Machine',"FoamHeight")*1.25,
-                                normalize = True )
+                                normalize = True,
+                                units= get_config('Project',"Units"))
 
     if OUTPUT_FILE:
         with open(OUTPUT_FILE,"w")as f:

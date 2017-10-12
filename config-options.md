@@ -3,6 +3,9 @@
 A config file contains the contains the variables that define your wing.  The config file is organized into multiple sections that you can edit to get the perfect wing.  Start by copying the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg) and use it as a starting point for creating your wing.  A sample config file looks like:
 
 ```cfg
+[Project]
+Units = inches
+
 [RootChord]
 Profile = http://m-selig.ae.illinois.edu/ads/coord/ag04.dat
 Width = 10
@@ -32,6 +35,16 @@ Kerf = 0.075
 ```
 
 ## Config File Sections
+
+### Project
+Define the properties of your project herer
+```cfg
+[Project]
+Units = inches
+...
+```
+* **Units** - Defines the project's units to be in 'inches' or 'millimeters'.  Default is inches if not specified.
+
 
 ### RootChord
 Define the properties of your root chord here

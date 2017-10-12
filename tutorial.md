@@ -17,11 +17,23 @@ As you can see the wing measures 65" long from tip to tip, has a root chord leng
 
 # Setting up the Config File
 
+## Project
+
+For this project we we'll be working in inches, so in the Project section we will specify the units.
+
+```cfg
+[Project]
+Units = inches
+...
+```
+**Units** - Defines the project to be in 'inches' or 'millimeters'.  Default is inches if not specified.
+
 ## RootChord
 
 For this wing, I'm going to use the RG-14 airfoil. Working with the copied sample config file, I'll start by modifying the [RootChord] section.
 
 ```cfg
+...
 [RootChord]
 Profile = http://airfoiltools.com/airfoil/seligdatfile?airfoil=rg14-il
 Width = 12
