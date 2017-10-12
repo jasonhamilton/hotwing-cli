@@ -1,9 +1,7 @@
 
-# HotWing-cli
-
 ![Hotwing Bird Logo](https://raw.githubusercontent.com/jasonhamilton/hotwing-cli/master/img/hotwing_logo.png)
 
-HotWing-cli is a is a Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter ([like this](http://www.foamlinx.com/foamlinx-small-hot-wire-cnc-foam-cutters.html)). It is based on the [hotwing-core library](https://github.com/jasonhamilton/hotwing-core) and allows a user to quickly and easily design their wings using a config file.
+HotWing-cli is a is a command-line-based Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter ([like this](http://www.foamlinx.com/foamlinx-small-hot-wire-cnc-foam-cutters.html)). The user defines wing design parameters in a config file, which is then parsed by and converted to gcode by HotWing-cli. HotWing-cli is built on the [hotwing-core library](https://github.com/jasonhamilton/hotwing-core).
 
 # Usage
 
