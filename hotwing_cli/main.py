@@ -15,14 +15,17 @@ def main():
     # argparse
     parser = argparse.ArgumentParser(description='Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.')
     parser.add_argument('input', metavar='input', type=str, help='Config file to process and create gcode from.')
-    parser.add_argument('-o', metavar='output', type=str, help='Output file to write to')
-    parser.add_argument('-d', action='store_true', help='Turn on debugging - draws images of profiles as they are created.')
-    parser.add_argument('-s', metavar='side', default='r', type=str, help='Side to cut - \'l\' or \'r\'')
-    parser.add_argument('-t', metavar='trim', type=str, help='Section of wing to cut starting at the root to the tip. '
-                                                             'e.g: 10-20 will use the panel but only cut a 10 unit section '\
-                                                             'starting at 10 units from the root and ending 20 units from the root.')
+    parser.add_argument('-o', metavar='output', type=str, help='Output file to write to.  If not specified, the output will be written to stdout.')
+    parser.add_argument('-d', action='store_true', help='Turn on debugging.  The output will be tab separated values instead of gcode. '
+                                                        'This also outputs images of profiles as they are created (requires PILLOW).')
+    parser.add_argument('-s', metavar='side', default='r', type=str, help='Side to cut - \'l\' or \'r\'. (default=\'r\')')
+    parser.add_argument('-t', metavar='trim', type=str, help='Trims the wing panel before cutting.  Specifies the section of wing to cut, '
+                                                             'starting at the root to the tip. For example \'10-20\' will cut a section '
+                                                             'starting at 10 units from the root and ending 20 units from the root (total '
+                                                             'width of 10 units).'
+                                                             )
     parser.add_argument('-p', metavar='points', default=200, type=int, 
-                        help='The number of points to interpolate/cut each profile surface (top/bottom).')
+                        help='The number of points to interpolate/cut each profile surface (top/bottom).  (default=200)')
 
 
     args = parser.parse_args()
