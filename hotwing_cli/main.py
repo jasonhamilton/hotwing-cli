@@ -11,6 +11,37 @@ except ModuleNotFoundError:
     import configparser as ConfigParser
 
 
+CONFIG_OPTIONS = {  
+    'RootChord':{   "Profile":{"type":str,"required":True},
+                    "Width":{"type":float,"required":True},
+                    "LeadingEdgeOffset":{"type":float,"required":False,"default":0},
+                    "Rotation":{"type":float,"required":False,"default":0},
+                    "RotationPosition":{"type":float,"required":False,"default":0}
+                },
+    'TipChord':{    "Profile":{"type":str,"required":True},
+                    "Width":{"type":float,"required":True},
+                    "LeadingEdgeOffset":{"type":float,"required":False,"default":0},
+                    "Rotation":{"type":float,"required":False,"default":0},
+                    "RotationPosition":{"type":float,"required":False,"default":0}
+    },
+    'Panel':{
+                    "Width":{"type":float,"required":True},
+                    "StockLeadingEdge":{"type":float,"required":False,"default":0},
+                    "StockTrailingEdge":{"type":float,"required":False,"default":0},
+                    "SheetingTop":{"type":float,"required":False,"default":0},
+                    "SheetingBottom":{"type":float,"required":False,"default":0}
+
+    },
+    'Machine':{
+                    "Width":{"type":float,"required":True},
+                    "FoamHeight":{"type":float,"required":True},
+                    "FoamDepth":{"type":float,"required":True},
+                    "Kerf":{"type":float,"required":True},
+    }
+}
+
+
+
 def main():
     # argparse
     parser = argparse.ArgumentParser(description='Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.')
@@ -63,34 +94,60 @@ def main():
     Config = ConfigParser.ConfigParser()
     Config.read(CONFIG_FILE)
 
+
+    def get_config(section, parameter):
+        opt = CONFIG_OPTIONS[section][parameter]
+        if opt['type'] == float:
+            try:
+                return Config.getfloat(section,parameter) 
+            except ConfigParser.NoOptionError:
+                if opt['required']:
+                    raise
+                else:
+                    if DEBUG:
+                        print("using default for %s - %s"%(section,parameter) )
+                    return opt["default"]
+        elif opt['type'] == str:
+            try:
+                return Config.get(section,parameter) 
+            except ConfigParser.NoOptionError:
+                if opt['required']:
+                    raise
+                else:
+                    if DEBUG:
+                        print("using default for %s - %s"%(section,parameter) )
+                    return opt["default"]
+
+
+
     try:
-        r1 = Rib(   Config.get('RootChord',"Profile"), 
-                    scale=Config.getfloat('RootChord',"Width"), 
-                    xy_offset=Coordinate(Config.getfloat('RootChord',"LeadingEdgeOffset"),0), 
-                    top_sheet=Config.getfloat('Panel',"SheetingTop"), 
-                    bottom_sheet=Config.getfloat('Panel',"SheetingBottom"), 
-                    front_stock=Config.getfloat('Panel',"StockLeadingEdge"), 
-                    tail_stock=Config.getfloat('Panel',"StockTrailingEdge"),
-                    rotate=Config.getfloat('RootChord',"Rotation"),
-                    rotate_pos=Config.getfloat('RootChord',"RotationPosition"),
+        r1 = Rib(   get_config('RootChord',"Profile"), 
+                    scale=get_config('RootChord',"Width"), 
+                    xy_offset=Coordinate(get_config('RootChord',"LeadingEdgeOffset"),0), 
+                    top_sheet=get_config('Panel',"SheetingTop"), 
+                    bottom_sheet=get_config('Panel',"SheetingBottom"), 
+                    front_stock=get_config('Panel',"StockLeadingEdge"), 
+                    tail_stock=get_config('Panel',"StockTrailingEdge"),
+                    rotate=get_config('RootChord',"Rotation"),
+                    rotate_pos=get_config('RootChord',"RotationPosition"),
                     )
     except IOError:
-        print("Error: Could not find the Root Chord file:", Config.get('RootChord',"Profile"))
+        print("Error: Could not find the Root Chord file:", get_config('RootChord',"Profile"))
         exit(1)
         
     try:
-        r2 = Rib(   Config.get('TipChord',"Profile"), 
-                    scale=Config.getfloat('TipChord',"Width"), 
-                    xy_offset=Coordinate(Config.getfloat('TipChord',"LeadingEdgeOffset"),0), 
-                    top_sheet=Config.getfloat('Panel',"SheetingTop"), 
-                    bottom_sheet=Config.getfloat('Panel',"SheetingBottom"), 
-                    front_stock=Config.getfloat('Panel',"StockLeadingEdge"), 
-                    tail_stock=Config.getfloat('Panel',"StockTrailingEdge"),
-                    rotate=Config.getfloat('TipChord',"Rotation"),
-                    rotate_pos=Config.getfloat('TipChord',"RotationPosition"),
+        r2 = Rib(   get_config('TipChord',"Profile"), 
+                    scale=get_config('TipChord',"Width"), 
+                    xy_offset=Coordinate(get_config('TipChord',"LeadingEdgeOffset"),0), 
+                    top_sheet=get_config('Panel',"SheetingTop"), 
+                    bottom_sheet=get_config('Panel',"SheetingBottom"), 
+                    front_stock=get_config('Panel',"StockLeadingEdge"), 
+                    tail_stock=get_config('Panel',"StockTrailingEdge"),
+                    rotate=get_config('TipChord',"Rotation"),
+                    rotate_pos=get_config('TipChord',"RotationPosition"),
                     )
     except IOError:
-        print("Error: Could not find the Tip Chord file:", Config.get('TipChord',"Profile"))
+        print("Error: Could not find the Tip Chord file:", get_config('TipChord',"Profile"))
         exit(1)
 
 
@@ -98,22 +155,22 @@ def main():
         r1, r2 = r2, r1
 
     # Create panel
-    p = Panel(r1, r2, Config.getfloat('Panel',"Width"))
+    p = Panel(r1, r2, get_config('Panel',"Width"))
 
     # Trim Panel, if necessary
     if TRIM:
         if SIDE == "left":
-            p = Panel.trim_panel(p, Config.getfloat('Panel',"Width") - TRIM_B, Config.getfloat('Panel',"Width") - TRIM_A )
+            p = Panel.trim_panel(p, get_config('Panel',"Width") - TRIM_B, get_config('Panel',"Width") - TRIM_A )
         if SIDE == "right":
             p = Panel.trim_panel(p, TRIM_A, TRIM_B )
 
-    if p.width > Config.getfloat('Machine',"Width"):
-        print("Error: Panel (%s) is bigger than the machine width (%s)." % (Config.getfloat('Machine',"Width"), p.width) )
+    if p.width > get_config('Machine',"Width"):
+        print("Error: Panel (%s) is bigger than the machine width (%s)." % (get_config('Machine',"Width"), p.width) )
         exit(1)
 
     # Create Machine
-    m = Machine(    width = Config.getfloat('Machine',"Width"), 
-                    kerf =  Config.getfloat('Machine',"Kerf"),
+    m = Machine(    width = get_config('Machine',"Width"), 
+                    kerf =  get_config('Machine',"Kerf"),
                     profile_points = args.p,
                     output_profile_images=args.d
                 )
@@ -124,14 +181,14 @@ def main():
         m.gcode_formatter_name = "debug"
 
     
-    foam_width = Config.getfloat('Machine',"FoamDepth")
+    foam_width = get_config('Machine',"FoamDepth")
     max_chord_length = max(r1.scale, r2.scale)
-    le_offset = te_offset = (foam_width - max_chord_length)/2 + Config.getfloat('Machine',"FoamDepth")* 0.05
+    le_offset = te_offset = (foam_width - max_chord_length)/2 + get_config('Machine',"FoamDepth")* 0.05
 
     # Generate code
     gcode = m.generate_gcode(   le_offset = le_offset, 
                                 te_offset = te_offset,
-                                safe_height = Config.getfloat('Machine',"FoamHeight")*1.25,
+                                safe_height = get_config('Machine',"FoamHeight")*1.25,
                                 normalize = True )
 
     if OUTPUT_FILE:
