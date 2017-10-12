@@ -1,0 +1,1 @@
+hotwing-cli.exe config.txt -o gcode.txt

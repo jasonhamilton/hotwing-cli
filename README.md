@@ -8,12 +8,24 @@ HotWing-cli is a is a command-line-based Gcode generator for cutting model aircr
 ![Versions](https://img.shields.io/badge/Python-2.7%2C%203.6-blue.svg)
 
 # Installation
- 
+
+## Install From Source
+
 1) Make sure you have Python and Pip installed.
 2) Download the repository to your computer.
 3) Navigate to the repository folder ```cd /my/folder/hotwing-cli``` in your terminal.
 4) Install Dependencies ```pip install -r requirements.txt```
 5) Install HotWing-CLI ```pip install .```
+
+## Download Binaries
+
+<center>
+
+| [![Windows Binary](https://png.icons8.com/windows8/color/96)](https://github.com/jasonhamilton/hotwing-cli/blob/master/bin/hotwing-cli-win.zip) |  [![OSX Binary](https://png.icons8.com/apple-logo/color/96)]() |  [![Linux Binary](https://png.icons8.com/linux/color/96)]() |
+| :---:  	|     :---:      |         :---: |
+| [Windows](https://github.com/jasonhamilton/hotwing-cli/blob/master/bin/hotwing-cli-win.zip) |  OSX    | Linux   |
+
+</center>
 
 # Usage
 
