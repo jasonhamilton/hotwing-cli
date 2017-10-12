@@ -4,6 +4,8 @@
 
 HotWing-cli is a is a command-line-based Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter ([like this](http://www.foamlinx.com/foamlinx-small-hot-wire-cnc-foam-cutters.html)). The user defines wing design parameters in a config file, which is then parsed by and converted to gcode by HotWing-cli. HotWing-cli is built on the [hotwing-core library](https://github.com/jasonhamilton/hotwing-core).
 
+[![Build Status](https://travis-ci.org/jasonhamilton/hotwing-cli.svg?branch=master)](https://travis-ci.org/jasonhamilton/hotwing-cli)
+![Versions](https://img.shields.io/badge/Python-2.7%2C%203.6-blue.svg)
 
 # Installation
  
