@@ -19,6 +19,8 @@ HotWing-cli is a is a command-line-based Gcode generator for cutting model aircr
 
 ## Download Binaries
 
+The stand-alone binaries are an easy way to get started.  The binaries have scripts that allow you to run the software without using the command line.  If you want to avoid the command like see the article on [avoiding the command line](https://github.com/jasonhamilton/hotwing-cli/blob/master/avoiding-the-command-line.md).
+
 <center>
 
 | [![Windows Binary](https://png.icons8.com/windows8/color/96)](https://github.com/jasonhamilton/hotwing-cli/raw/master/bin/hotwing-cli-win.zip) |  [![OSX Binary](https://png.icons8.com/apple-logo/color/96)](https://github.com/jasonhamilton/hotwing-cli/raw/master/bin/hotwing-cli-osx.zip) |  [![Linux Binary](https://png.icons8.com/linux/color/96)]() |
@@ -33,7 +35,7 @@ HotWing-cli is a is a command-line-based Gcode generator for cutting model aircr
 
 1) Install HotWing-cli per the [Installation Instructions](https://github.com/jasonhamilton/hotwing-cli/blob/master/README.md#installation)
 2) Create a copy the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg).
-3) Modify the config file.  See the [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.md) for details.
+3) Modify the config file.  See the [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/config-options.md) for details.
 4) Run HotWing  ```hotwing-cli path-to-my-config.cfg```.  
 
 The previous command output the Gcode to the screen but we can output it to a file.  
@@ -49,7 +51,7 @@ For a more detailed walk through see this [tutorial](https://github.com/jasonham
 ## Command Line Arguments
 
 ```sh
-$ python hotwing.py -h # see additional options
+$ hotwing-cli -h # see additional options
 ```
 
 ### Synopsis
