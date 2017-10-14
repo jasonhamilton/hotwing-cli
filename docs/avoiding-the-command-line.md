@@ -13,7 +13,7 @@ This tutorial assumes you're working with the binary downloads. With each of the
 
 ## Editing The Config File
 
-All you need to do is open the config.txt file in your favorite text editor or Notepad (if you're on Windows) and modify the code according to the  [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/config-options.md).
+All you need to do is open the config.txt file in your favorite text editor or Notepad (if you're on Windows) and modify the code according to the  [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/config-options.md).
 
 ![Binary Contents](https://raw.githubusercontent.com/jasonhamilton/hotwing-cli/master/img/avoiding_cli_config_edit.png)
 

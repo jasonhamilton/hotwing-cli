@@ -19,7 +19,7 @@ HotWing-cli is a is a command-line-based Gcode generator for cutting model aircr
 
 ## Download Binaries
 
-The stand-alone binaries are an easy way to get started.  The binaries have scripts that allow you to run the software without using the command line.  If you want to avoid the command like see the article on [avoiding the command line](https://github.com/jasonhamilton/hotwing-cli/blob/master/avoiding-the-command-line.md).
+The stand-alone binaries are an easy way to get started.  The binaries have scripts that allow you to run the software without using the command line.  If you want to avoid the command like see the article on [avoiding the command line](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/avoiding-the-command-line.md).
 
 <center>
 
@@ -35,7 +35,7 @@ The stand-alone binaries are an easy way to get started.  The binaries have scri
 
 1) Install HotWing-cli per the [Installation Instructions](https://github.com/jasonhamilton/hotwing-cli/blob/master/README.md#installation)
 2) Create a copy the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg).
-3) Modify the config file.  See the [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/config-options.md) for details.
+3) Modify the config file.  See the [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/config-options.md) for details.
 4) Run HotWing  ```hotwing-cli path-to-my-config.cfg```.  
 
 The previous command output the Gcode to the screen but we can output it to a file.  
@@ -46,7 +46,7 @@ $ hotwing-cli path-to-my-config.cfg > saved-gcode.ngc
 # Or specify an output file with the -o parameter
 hotwing-cli -o saved-gcode.ngc path-to-my-config.cfg
 ```
-For a more detailed walk through see this [tutorial](https://github.com/jasonhamilton/hotwing-cli/blob/master/tutorial.md)
+For a more detailed walk through see this [tutorial](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/tutorial.md)
 
 ## Command Line Arguments
 
