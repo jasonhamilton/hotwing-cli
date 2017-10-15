@@ -142,10 +142,10 @@ Typically you would just run
 
 ```sh
 # generate the code for the right side (default)
-$ hotwing-cli myconfig.cfg > right.ngc
+$ hotwing-cli parse myconfig.cfg > right.ngc
 
 # generate the code for the left side (use the "-s l") to specify left
-$ hotwing-cli -s l myconfig.cfg > left.ngc
+$ hotwing-cli parse myconfig.cfg -s l > left.ngc
 ```
 
 But this produces the following error:
@@ -166,20 +166,20 @@ In order for the panel to fit into our machine, we need to split the panel into 
 ```sh
 # This command splits the panel at 0 distance from the root chord (so no split)
 # up to 16.25 inches from the root chord.  This produces panel 1
-$ hotwing-cli myconfig.cfg -t 0-16.25 -o right_a.ngc
+$ hotwing-cli parse myconfig.cfg -t 0-16.25 -o right_a.ngc
 
 # This command splits the panel at 16.25 distance from the root chord
 # up to 32.5 inches from the root chord (so no split).  This produces panel 2
-$ hotwing-cli -t 16.25-32.5 myconfig.cfg -o right_b.ngc
+$ hotwing-cli parse myconfig.cfg -t 16.25-32.5 -o right_b.ngc
 
 # This command splits the panel at 0 distance from the root chord (so no split)
 # up to 16.25 inches from the root chord.  We also tell the software that we want to cut
 # the left side of the wing.  This produces panel 3
-$ hotwing-cli myconfig.cfg -s l -t 0-16.25 -o left_a.ngc
+$ hotwing-cli parse myconfig.cfg -s l -t 0-16.25 -o left_a.ngc
 
 # This command splits the panel at 16.25 distance from the root chord
 # up to 32.5 inches from the root chord (so no split).  This produces panel 2
-$ hotwing-cli -s l -t 16.25-32.5 myconfig.cfg -o left_b.ngc
+$ hotwing-cli parse myconfig.cfg -s l -t 16.25-32.5 -o left_b.ngc
 ```
 
 Now you have 4 gcode files to cut the panels for your wing.

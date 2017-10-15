@@ -34,17 +34,17 @@ The stand-alone binaries are an easy way to get started.  The binaries have scri
 ## Quick Start
 
 1) Install HotWing-cli per the [Installation Instructions](https://github.com/jasonhamilton/hotwing-cli/blob/master/README.md#installation)
-2) Create a copy the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg).
+2) Generate a config file by running ```hotwing-cli init myconfig.cfg``` or copy the [sample config file](https://github.com/jasonhamilton/hotwing-cli/blob/master/sample-config.cfg).
 3) Modify the config file.  See the [Config File Options section](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/config-options.md) for details.
-4) Run HotWing  ```hotwing-cli path-to-my-config.cfg```.  
+4) Run HotWing  ```hotwing-cli parse path-to-my-config.cfg```.  
 
 The previous command output the Gcode to the screen but we can output it to a file.  
 ```sh
 # You can redirect the output
-$ hotwing-cli path-to-my-config.cfg > saved-gcode.ngc
+$ hotwing-cli parse path-to-my-config.cfg > saved-gcode.ngc
 
 # Or specify an output file with the -o parameter
-hotwing-cli -o saved-gcode.ngc path-to-my-config.cfg
+hotwing-cli parse path-to-my-config.cfg -o saved-gcode.ngc 
 ```
 For a more detailed walk through see this [tutorial](https://github.com/jasonhamilton/hotwing-cli/blob/master/docs/tutorial.md)
 
@@ -56,10 +56,11 @@ $ hotwing-cli -h # see additional options
 
 ### Synopsis
 
-hotwing-cli [OPTION]... FILE
-
+hotwing-cli COMMAND FILE [OPTION]...
 
 ### Options
+  **command** Available: parse, init. Parse takes an input config file and converts it to gcode.  Init creates a new config file.
+
   **-o** Output file to write to.  If not specified, the output will be written to stdout.
 
   **-d** Turn on debugging.  The output will be tab separated values instead of gcode.  This also outputs images of profiles as they are created (requires PILLOW).

@@ -5,6 +5,7 @@ from hotwing_core.rib import Rib
 from hotwing_core.machine import Machine
 from hotwing_core.panel import Panel
 from hotwing_core.coordinate import Coordinate
+from .generate_config import generate_config
 import argparse
 import os
 try:
@@ -52,7 +53,9 @@ CONFIG_OPTIONS = {
 def main():
     # argparse
     parser = argparse.ArgumentParser(description='Gcode generator for cutting model aircraft wings on a 4-axis CNC foam cutter.')
-    parser.add_argument('input', metavar='input', type=str, help='Config file to process and create gcode from.')
+    parser.add_argument('command', metavar='command', type=str, help='Command.  Available: parse, init. Parse takes an input config file and '
+                                                                    'converts it to gcode.  Init creates a new config file.', nargs="+")
+    parser.add_argument('-i', metavar='input', type=str, help='Config file to process and create gcode from.')
     parser.add_argument('-o', metavar='output', type=str, help='Output file to write to.  If not specified, the output will be written to stdout.')
     parser.add_argument('-d', action='store_true', help='Turn on debugging.  The output will be tab separated values instead of gcode. '
                                                         'This also outputs images of profiles as they are created (requires PILLOW).')
@@ -67,11 +70,36 @@ def main():
     parser.add_argument('-l', metavar='left_offset', type=float, 
                         help='Distance to place the panel from the left machine pillar.  If not specified, the panel will '
                              'be centered between the machine pillars')
+    
 
     args = parser.parse_args()
     DEBUG = args.d
     OUTPUT_FILE = args.o
-    CONFIG_FILE = args.input
+    CONFIG_FILE = args.i
+    COMMAND = str(args.command[0])
+
+    if COMMAND == "init":
+        if len(args.command) == 2:
+            generate_config(args.command[1])
+            print("config file generated - %s" % args.command[1])
+            exit(0)
+        else:
+            print("Error generating config file. One command expected")
+            exit(1)
+    elif COMMAND == "parse":
+        if not CONFIG_FILE:
+            if len(args.command) == 2:
+                CONFIG_FILE = args.command[1]
+                # try using the positional parameter
+            else:
+                # no additional positional parameter
+                print("Error: no config file received.  Try using 'hotwing-cli parse myconfig.cfg' or use the -i parameter "
+                      "to specify your config file.")
+                exit(1)
+    else:
+        print("Error: Unknown command %s" % COMMAND)
+        exit(1)
+
 
     # PARSE SIDE PARAMETER
     if args.s.lower() not in ['l','r','left','right']:
