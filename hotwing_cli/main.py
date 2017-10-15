@@ -200,6 +200,11 @@ def main():
     foam_width = get_config('Machine',"FoamDepth")
     max_chord_length = max(r1.scale, r2.scale)
     le_offset = te_offset = (foam_width - max_chord_length)/2 + get_config('Machine',"FoamDepth")* 0.05
+    max_cut_width = max_chord_length - get_config('Panel',"StockLeadingEdge") - get_config('Panel',"StockTrailingEdge")
+
+    if max_cut_width > foam_width:
+        print("Error: Foam (%s) is smaller than the cut size (%s)." % (foam_width, max_cut_width) )
+        exit(1)
 
     # Generate code
     gcode = m.generate_gcode(   le_offset = le_offset, 
