@@ -7,4 +7,5 @@ install:
   - pip install -r requirements.txt
   - pip install .
 script:
-  - hotwing-cli sample-config.cfg
+  - hotwing-cli init myconf.cfg
+  - hotwing-cli parse myconf.cfg
