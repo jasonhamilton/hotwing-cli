@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import division
 from hotwing_core.profile import Profile
 from hotwing_core.rib import Rib
 from hotwing_core.machine import Machine
@@ -187,7 +188,7 @@ def main():
         offset = args.l
     else:
         # center panel by default
-        offset = (get_config('Machine',"Width") - p.width)/2.0
+        offset = (get_config('Machine',"Width") - p.width)/2
 
     # Load Panel into Machine
     m.load_panel(left_offset=offset, panel=p)
@@ -198,7 +199,7 @@ def main():
     
     foam_width = get_config('Machine',"FoamDepth")
     max_chord_length = max(r1.scale, r2.scale)
-    le_offset = te_offset = (foam_width - max_chord_length)/2.0 + get_config('Machine',"FoamDepth")* 0.05
+    le_offset = te_offset = (foam_width - max_chord_length)/2 + get_config('Machine',"FoamDepth")* 0.05
 
     # Generate code
     gcode = m.generate_gcode(   le_offset = le_offset, 
