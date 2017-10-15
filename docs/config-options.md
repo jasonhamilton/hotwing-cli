@@ -105,11 +105,13 @@ SheetingBottom = 0.0625
 Width = 30
 FoamHeight = 2
 FoamDepth = 10
+Feedrate = 5
 Kerf = 0.075
 ```
  * **Width** -  Width of the distance between the pillars of your foam cutter.  This should be measured to where the hotwire is anchored on each pillar
  * **FoamHeight** 
  * **FoamDepth**
+ **Feedrate** - CNC feedrate speed in units / minute.
  * **Kerf** -  Amount of room to offset the hotwire so an accurate amount of foam is cut
 
 

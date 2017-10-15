@@ -42,6 +42,7 @@ CONFIG_OPTIONS = {
                     "Width":{"type":float,"required":True},
                     "FoamHeight":{"type":float,"required":True},
                     "FoamDepth":{"type":float,"required":True},
+                    "Feedrate":{"type":float,"required":True},
                     "Kerf":{"type":float,"required":True},
     }
 }
@@ -211,7 +212,8 @@ def main():
                                 te_offset = te_offset,
                                 safe_height = get_config('Machine',"FoamHeight")*1.25,
                                 normalize = True,
-                                units= get_config('Project',"Units"))
+                                units = get_config('Project',"Units"),
+                                feedrate = get_config('Machine',"Feedrate") )
 
     if OUTPUT_FILE:
         with open(OUTPUT_FILE,"w")as f:
