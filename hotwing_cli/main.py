@@ -61,7 +61,9 @@ def main():
                                                              )
     parser.add_argument('-p', metavar='points', default=200, type=int, 
                         help='The number of points to interpolate/cut each profile surface (top/bottom).  (default=200)')
-
+    parser.add_argument('-l', metavar='left_offset', type=float, 
+                        help='Distance to place the panel from the left machine pillar.  If not specified, the panel will '
+                             'be centered between the machine pillars')
 
     args = parser.parse_args()
     DEBUG = args.d
@@ -178,8 +180,15 @@ def main():
                     profile_points = args.p,
                     output_profile_images=args.d
                 )
+    
+    # Set offset
+    if args.l:
+        offset = args.l
+    else:
+        # center panel by default
+        offset = (get_config('Machine',"Width") - p.width)/2.0
+
     # Load Panel into Machine
-    offset = (get_config('Machine',"Width") - p.width)/2.0
     m.load_panel(left_offset=offset, panel=p)
 
     if DEBUG:

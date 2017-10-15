@@ -70,3 +70,5 @@ hotwing-cli [OPTION]... FILE
 
   **-p** The number of points to interpolate/cut each profile surface (top/bottom).  (default=200)
 
+  **-l** Distance to place the panel from the left machine pillar.  If not specified, the panel will be centered between the machine pillars.
+
