@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from hotwing_core.profile import Profile
 from hotwing_core.rib import Rib
 from hotwing_core.machine import Machine
