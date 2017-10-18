@@ -63,7 +63,7 @@ hotwing-cli COMMAND FILE [OPTION]...
 
   **-o** Output file to write to.  If not specified, the output will be written to stdout.
 
-  **-d** Turn on debugging.  The output will be tab separated values instead of gcode.  This also outputs images of profiles as they are created (requires PILLOW).
+  **-d** Turn on debugging.  The output will be tab separated values instead of gcode.
 
   **-s** Side to cut - 'l' or 'r'. (default='r')
 

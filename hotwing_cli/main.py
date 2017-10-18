@@ -42,7 +42,6 @@ CONFIG_OPTIONS = {
     'Machine':{
                     "Width":{"type":float,"required":True},
                     "FoamHeight":{"type":float,"required":True},
-                    "FoamDepth":{"type":float,"required":True},
                     "Feedrate":{"type":float,"required":True},
                     "Kerf":{"type":float,"required":True},
     }
@@ -57,8 +56,7 @@ def main():
                                                                     'converts it to gcode.  Init creates a new config file.', nargs="+")
     parser.add_argument('-i', metavar='input', type=str, help='Config file to process and create gcode from.')
     parser.add_argument('-o', metavar='output', type=str, help='Output file to write to.  If not specified, the output will be written to stdout.')
-    parser.add_argument('-d', action='store_true', help='Turn on debugging.  The output will be tab separated values instead of gcode. '
-                                                        'This also outputs images of profiles as they are created (requires PILLOW).')
+    parser.add_argument('-d', action='store_true', help='Turn on debugging.  The output will be tab separated values instead of gcode.')
     parser.add_argument('-s', metavar='side', default='r', type=str, help='Side to cut - \'l\' or \'r\'. (default=\'r\')')
     parser.add_argument('-t', metavar='trim', type=str, help='Trims the wing panel before cutting.  Specifies the section of wing to cut, '
                                                              'starting at the root to the tip. For example \'10-20\' will cut a section '
@@ -165,8 +163,8 @@ def main():
                     bottom_sheet=get_config('Panel',"SheetingBottom"), 
                     front_stock=get_config('Panel',"StockLeadingEdge"), 
                     tail_stock=get_config('Panel',"StockTrailingEdge"),
-                    rotate=get_config('RootChord',"Rotation"),
-                    rotate_pos=get_config('RootChord',"RotationPosition"),
+                    rotation=get_config('RootChord',"Rotation"),
+                    rotation_pos=get_config('RootChord',"RotationPosition"),
                     )
     except IOError:
         print("Error: Could not find the Root Chord file:", get_config('RootChord',"Profile"))
@@ -180,8 +178,8 @@ def main():
                     bottom_sheet=get_config('Panel',"SheetingBottom"), 
                     front_stock=get_config('Panel',"StockLeadingEdge"), 
                     tail_stock=get_config('Panel',"StockTrailingEdge"),
-                    rotate=get_config('TipChord',"Rotation"),
-                    rotate_pos=get_config('TipChord',"RotationPosition"),
+                    rotation=get_config('TipChord',"Rotation"),
+                    rotation_pos=get_config('TipChord',"RotationPosition"),
                     )
     except IOError:
         print("Error: Could not find the Tip Chord file:", get_config('TipChord',"Profile"))
@@ -209,7 +207,8 @@ def main():
     m = Machine(    width = get_config('Machine',"Width"), 
                     kerf =  get_config('Machine',"Kerf"),
                     profile_points = args.p,
-                    output_profile_images=args.d
+                    units = get_config('Project',"Units"),
+                    feedrate = get_config('Machine',"Feedrate")
                 )
     
     # Set offset
@@ -225,23 +224,10 @@ def main():
     if DEBUG:
         m.gcode_formatter_name = "debug"
 
-    
-    foam_width = get_config('Machine',"FoamDepth")
-    max_chord_length = max(r1.scale, r2.scale)
-    le_offset = te_offset = (foam_width - max_chord_length)/2 + get_config('Machine',"FoamDepth")* 0.05
-    max_cut_width = max_chord_length - get_config('Panel',"StockLeadingEdge") - get_config('Panel',"StockTrailingEdge")
-
-    if max_cut_width > foam_width:
-        print("Error: Foam (%s) is smaller than the cut size (%s)." % (foam_width, max_cut_width) )
-        exit(1)
 
     # Generate code
-    gcode = m.generate_gcode(   le_offset = le_offset, 
-                                te_offset = te_offset,
-                                safe_height = get_config('Machine',"FoamHeight")*1.25,
-                                normalize = True,
-                                units = get_config('Project',"Units"),
-                                feedrate = get_config('Machine',"Feedrate") )
+    gcode = m.generate_gcode(   safe_height = get_config('Machine',"FoamHeight")*1.25,
+                                normalize = True )
 
     if OUTPUT_FILE:
         with open(OUTPUT_FILE,"w")as f:
