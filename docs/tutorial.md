@@ -121,6 +121,7 @@ And after we glue on and shape the stock we will end up with something like this
 [Machine]
 Width = 30
 FoamHeight = 2
+SafeHeight = 4
 Feedrate = 5
 Kerf = 0.075
 ```
@@ -128,6 +129,8 @@ Kerf = 0.075
 **Width** - Set Width to the width of your foam cutting machine.
 
 **FoamHeight** - Specify the size of your foam block you'll be using to cut out your wing.
+
+**SafeHeight** - Specify the safe height of your machine to clear any workpieces.
 
 **Feedrate** - CNC feedrate speed in units / minute.
 

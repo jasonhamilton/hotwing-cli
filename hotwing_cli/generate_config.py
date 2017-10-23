@@ -32,6 +32,7 @@ SheetingBottom = 0.0625
 [Machine]
 Width = 30
 FoamHeight = 2
+SafeHeight = 4
 Feedrate = 5
 Kerf = 0.075
 """

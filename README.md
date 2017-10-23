@@ -51,15 +51,22 @@ For a more detailed walk through see this [tutorial](https://github.com/jasonham
 ## Command Line Arguments
 
 ```sh
-$ hotwing-cli -h # see additional options
+$ hotwing-cli --help # see additional options
 ```
 
 ### Synopsis
 
 hotwing-cli COMMAND FILE [OPTION]...
 
+Examples
+```sh
+$ hotwing-cli init NEW.CFG # create a new config 
+
+$ hotwing-cli parse --help # see parse command help
+$ hotwing-cli init NEW.CFG # create a new config file
+```
+
 ### Options
-  **command** Available: parse, init. Parse takes an input config file and converts it to gcode.  Init creates a new config file.
 
   **-o** Output file to write to.  If not specified, the output will be written to stdout.
 

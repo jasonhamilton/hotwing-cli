@@ -1,1 +1,2 @@
-git+http://github.com/jasonhamilton/hotwing-core.git
+hotwing-core
+click

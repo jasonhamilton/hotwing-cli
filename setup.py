@@ -11,7 +11,7 @@ setup(
     entry_points = {
         'console_scripts': ['hotwing-cli=hotwing_cli:main'],
     },
-    # install_requires=[],
+    install_requires=['hotwing-core','click',],
     classifiers=[
 
         # How mature is this project? Common values are
