@@ -8,7 +8,7 @@ copy bundle\* hotwing-cli
 copy ..\common\hotwing-cli.py .
 
 :: Copy the config file
-copy ..\common\config.txt hotwing-cli\
+copy ..\..\..\sample-config.cfg hotwing-cli\config.txt
 
 :: Copy the icon file
 copy ..\common\favicon.ico .
@@ -35,9 +35,6 @@ rd hotwing-cli /s /q
 
 :: Delete the hotwing file
 del hotwing-cli.py
-
-:: Delete the config file
-del config.txt
 
 :: Delete the icon file
 del favicon.ico
